@@ -1,0 +1,13 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/CosmoDbFunctionApp/.vs/CosmoDbFunctionApp/v16
+/CosmosDbFunctionApp/.vs
+/CosmosDbFunctionApp/CosmosDBFuncRG/bin/Debug/staging/CosmosDBFuncRG
+/CosmosDbFunctionApp/CosmosDBFuncRG/obj/Debug
+/CosmosDbFunctionApp/Repository/bin/Debug/netcoreapp2.2
+/CosmosDbFunctionApp/Repository/obj
+/CosmosDbFunctionApp/RepositoryContract/bin/Debug/netcoreapp2.2
+/CosmosDbFunctionApp/RepositoryContract/obj
