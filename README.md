@@ -1,1 +1,1 @@
-# CosmoDbFunctionApp
+# CosmosDbFunctionApp
