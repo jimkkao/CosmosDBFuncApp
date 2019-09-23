@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
     <AzureFunctionsVersion>v2</AzureFunctionsVersion>
   </PropertyGroup>
   <ItemGroup>
@@ -8,7 +8,6 @@
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.29" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CosmosDBFuncRG\CosmosDBFuncRG.deployproj" />
     <ProjectReference Include="..\Model\Model.csproj" />
     <ProjectReference Include="..\RepositoryContract\RepositoryContract.csproj" />
     <ProjectReference Include="..\Repository\Repository.csproj" />
