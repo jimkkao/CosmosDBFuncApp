@@ -51,7 +51,7 @@ namespace MainFunctionApp
             
             var services = new ServiceCollection()
                 .AddSingleton<IRepository<Customer>, SQLRepository<Customer>>()
-                .AddSingleton<ISqlConfig>(new SqlConfig( endpointurl, primaryKey, database, container, partitionKey));
+                .AddSingleton<ISqlConfig>(new SqlConfig());
 
 
 
