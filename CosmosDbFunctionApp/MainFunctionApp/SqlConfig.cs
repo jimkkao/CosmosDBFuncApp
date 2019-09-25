@@ -12,6 +12,9 @@ namespace MainFunctionApp
         {
             EndPointUrl = GetEndPointUrl();
             PrimaryKey = GetPrimaryKey();
+            DataBase = GetDatabase();
+            Container = GetContainer();
+            PartitionKey = GetPartitionKey();
 
         }
         public SqlConfig(string endPointUrl, string primaryKey, string database, string container, string partitionKey)
@@ -59,13 +62,21 @@ namespace MainFunctionApp
             return val;
         }
 
+        public static string GetPartitionKey()
+        {
+            var val = System.Environment.GetEnvironmentVariable("PartitionKey");
+
+            val = string.IsNullOrEmpty(val) ? string.Empty : val;
+
+            return val;
+        }
+
         public string EndPointUrl
         {
             get;
             set;
         }
         
-
         public string PrimaryKey
         {
             get;
