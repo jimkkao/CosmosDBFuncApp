@@ -7,8 +7,10 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using System.Linq.Expressions;
 
 using RepositoryContract;
+using Model;
 
 namespace MainFunctionApp
 {
@@ -22,15 +24,33 @@ namespace MainFunctionApp
             string uniqueid,
             ILogger log)
         {
-            log.LogInformation("C# HTTP trigger function processed a request.");
+            log.LogInformation($"C# HTTP trigger function processed a request, uniqueid={uniqueid}");
 
-            string name = req.Query["name"];
 
-            var id = string.Format( $"{uniqueid}");
+            var id = uniqueid;
 
-      
-            return (ActionResult)new OkObjectResult(id);
+            IRepository<Customer> repo = _serviceProvider.GetService(typeof(IRepository<Customer>)) as IRepository<Customer>;
 
+            Expression < Func<Customer, bool> > lambda = x => x.UniqueId == uniqueid;
+            try
+            {
+                var result = repo.Get(lambda);
+
+                return (ActionResult)new OkObjectResult(result);
+            }
+            catch( Exception e )
+            {
+                log.LogError(e.Message);
+
+                return (ActionResult)new BadRequestResult();
+            }
+        }
+
+        static Func<Customer, bool> CreateLambda(string uniqueid)
+        {
+            Expression<Func<Customer, bool>> lambda = x => x.UniqueId == uniqueid;
+
+            return lambda.Compile();
         }
     }
 }

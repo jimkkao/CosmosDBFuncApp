@@ -39,6 +39,7 @@ namespace Repository
 
         public async Task<List<T>> Get(Expression<Func<T, bool>> func)
         {
+            
             return  _container.GetItemLinqQueryable<T>().Where(func).ToList<T>();
         }
 
