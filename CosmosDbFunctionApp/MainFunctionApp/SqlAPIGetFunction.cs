@@ -19,13 +19,14 @@ namespace MainFunctionApp
         [FunctionName("SqlAPIGetFunction")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", Route = "customer/{uniqueid}")] HttpRequest req,
+            string uniqueid,
             ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
             string name = req.Query["name"];
 
-            var id = "{uniqueid}";
+            var id = string.Format( $"{uniqueid}");
 
       
             return (ActionResult)new OkObjectResult(id);
