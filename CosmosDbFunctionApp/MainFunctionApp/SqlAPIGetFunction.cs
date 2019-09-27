@@ -28,18 +28,12 @@ namespace MainFunctionApp
             log.LogInformation($"C# HTTP trigger function processed a request, uniqueid={uniqueid}");
 
             var id = uniqueid;
-
-            IRepository<Customer> repo = _serviceProvider.GetService(typeof(IRepository<Customer>)) as IRepository<Customer>;
-
-            Expression < Func<Customer, bool> > lambda = x => x.UniqueId == uniqueid;
             try
-            {
-                //SQLRepository<Customer> sqlrepo = (SQLRepository<Customer>)repo;
-                //var result = await sqlrepo.Get(uniqueid);
-
-
+            { 
+                IRepository<Customer> repo = _serviceProvider.GetService(typeof(IRepository<Customer>)) as IRepository<Customer>;
+                Expression < Func<Customer, bool> > lambda = x => x.UniqueId == uniqueid;
+          
                 var result = await repo.Get(lambda);
-
                 
                 var jsonResult = JsonConvert.SerializeObject(result);
 
