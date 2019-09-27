@@ -26,7 +26,6 @@ namespace MainFunctionApp
         {
             log.LogInformation($"C# HTTP trigger function processed a request, uniqueid={uniqueid}");
 
-
             var id = uniqueid;
 
             IRepository<Customer> repo = _serviceProvider.GetService(typeof(IRepository<Customer>)) as IRepository<Customer>;
@@ -34,9 +33,13 @@ namespace MainFunctionApp
             Expression < Func<Customer, bool> > lambda = x => x.UniqueId == uniqueid;
             try
             {
-                var result = repo.Get(lambda);
+                var result = await repo.Get(lambda);
 
-                return (ActionResult)new OkObjectResult(result);
+                var jsonResult = JsonConvert.SerializeObject(result);
+
+                log.LogInformation(jsonResult);
+
+                return (ActionResult)new OkObjectResult(jsonResult);
             }
             catch( Exception e )
             {
