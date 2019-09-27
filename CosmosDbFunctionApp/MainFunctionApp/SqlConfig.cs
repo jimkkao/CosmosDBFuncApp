@@ -19,7 +19,7 @@ namespace MainFunctionApp
         }
         public SqlConfig(string endPointUrl, string primaryKey, string database, string container, string partitionKey)
         {
-            EndPointUrl = endPointUrl;
+            EndPointUri = endPointUrl;
             PrimaryKey = primaryKey;
             DataBase = database;
             Container = container;

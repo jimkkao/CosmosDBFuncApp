@@ -25,7 +25,7 @@ namespace Repository
         {
             _config = config;
 
-            _client = new CosmosClient(config.EndPointUrl, config.PrimaryKey);
+            _client = new CosmosClient(config.EndPointUri, config.PrimaryKey);
 
             _database = _client.CreateDatabaseIfNotExistsAsync(_config.DataBase).Result.Database;
 
