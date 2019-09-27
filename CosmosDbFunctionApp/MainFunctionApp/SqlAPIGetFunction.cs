@@ -33,7 +33,7 @@ namespace MainFunctionApp
             Expression < Func<Customer, bool> > lambda = x => x.UniqueId == uniqueid;
             try
             {
-                var result = await repo.Get(lambda);
+                var result = repo.Get(lambda);
 
                 var jsonResult = JsonConvert.SerializeObject(result);
 
