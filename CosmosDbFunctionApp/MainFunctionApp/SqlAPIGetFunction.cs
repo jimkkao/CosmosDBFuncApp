@@ -11,6 +11,7 @@ using System.Linq.Expressions;
 
 using RepositoryContract;
 using Model;
+using Repository;
 
 namespace MainFunctionApp
 {
@@ -33,7 +34,10 @@ namespace MainFunctionApp
             Expression < Func<Customer, bool> > lambda = x => x.UniqueId == uniqueid;
             try
             {
-                var result = repo.Get(lambda);
+                SQLRepository<Customer> sqlrepo = (SQLRepository<Customer>)repo;
+                //var result = await repo.Get(lambda);
+
+                var result = await sqlrepo.Get(uniqueid);
 
                 var jsonResult = JsonConvert.SerializeObject(result);
 

@@ -10,6 +10,7 @@ using Microsoft.Azure.Cosmos;
 
 
 using RepositoryContract;
+using Model;
 
 namespace Repository
 {
@@ -39,8 +40,14 @@ namespace Repository
 
         public async Task<List<T>> Get(Expression<Func<T, bool>> func)
         {
-            
+
             return _container.GetItemLinqQueryable<T>(true).Where(func).ToList<T>();
+           
+        }
+
+        public async Task<List<Customer>> Get(string uniqueid)
+        {
+            return _container.GetItemLinqQueryable<Customer>(true).Where(x => x.UniqueId == uniqueid).ToList<Customer>();
         }
 
         public async Task<T> Insert(T item)
