@@ -34,11 +34,13 @@ namespace MainFunctionApp
             Expression < Func<Customer, bool> > lambda = x => x.UniqueId == uniqueid;
             try
             {
-                SQLRepository<Customer> sqlrepo = (SQLRepository<Customer>)repo;
-                //var result = await repo.Get(lambda);
+                //SQLRepository<Customer> sqlrepo = (SQLRepository<Customer>)repo;
+                //var result = await sqlrepo.Get(uniqueid);
 
-                var result = await sqlrepo.Get(uniqueid);
 
+                var result = await repo.Get(lambda);
+
+                
                 var jsonResult = JsonConvert.SerializeObject(result);
 
                 log.LogInformation($"result: {jsonResult}");
