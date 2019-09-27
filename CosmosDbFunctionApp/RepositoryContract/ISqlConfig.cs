@@ -6,7 +6,7 @@ namespace RepositoryContract
 {
     public interface ISqlConfig
     {
-        string EndPointUrl { get; }
+        string EndPointUri { get; }
 
         string PrimaryKey { get; }
 
