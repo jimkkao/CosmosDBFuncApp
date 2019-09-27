@@ -37,7 +37,7 @@ namespace MainFunctionApp
 
                 var jsonResult = JsonConvert.SerializeObject(result);
 
-                log.LogInformation(jsonResult);
+                log.LogInformation($"result: {jsonResult}");
 
                 return (ActionResult)new OkObjectResult(jsonResult);
             }
