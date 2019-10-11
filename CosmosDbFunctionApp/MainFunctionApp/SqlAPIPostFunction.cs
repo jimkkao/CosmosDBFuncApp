@@ -8,26 +8,40 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
+using Model;
+using RepositoryContract;
+
 namespace MainFunctionApp
 {
     public static class SqlAPIPostFunction
     {
+        static IServiceProvider _serviceProvider = Bootstrap.ConfigureServices();
+
         [FunctionName("SqlAPIPostFunction")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = "customer")] HttpRequest req,
             ILogger log)
         {
-            log.LogInformation("C# HTTP trigger function processed a request.");
+            log.LogInformation("C# HTTP trigger SQLPost function processed a request.");
 
-            string name = req.Query["name"];
+            try
+            {
+                string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+                var customer = JsonConvert.DeserializeObject<Customer>(requestBody);
 
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            dynamic data = JsonConvert.DeserializeObject(requestBody);
-            name = name ?? data?.name;
+                IRepository<Customer> repo = _serviceProvider.GetService(typeof(IRepository<Customer>)) as IRepository<Customer>;
 
-            return name != null
-                ? (ActionResult)new OkObjectResult($"Hello, {name}")
-                : new BadRequestObjectResult("Please pass a name on the query string or in the request body");
+                var result = repo.Insert(customer);
+
+                string jsonResult = JsonConvert.SerializeObject(result);
+
+                return (ActionResult)new OkObjectResult(jsonResult);
+            }
+            catch( Exception ex)
+            {
+                log.LogError(ex, "CosmosDB Inserted Failed!");
+                return (ActionResult)new BadRequestResult();
+            }
         }
     }
 }
