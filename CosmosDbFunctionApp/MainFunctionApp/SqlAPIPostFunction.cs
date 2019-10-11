@@ -39,7 +39,7 @@ namespace MainFunctionApp
             }
             catch( Exception ex)
             {
-                log.LogError(ex, "CosmosDB Inserted Failed!");
+                log.LogError(ex, "Function SQL Post Failed!");
                 return (ActionResult)new BadRequestResult();
             }
         }
