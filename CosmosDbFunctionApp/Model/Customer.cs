@@ -4,6 +4,8 @@ namespace Model
 {
     public class Customer
     {
+        public string id { get; set; }
+
         public string UniqueId { get; set; }
 
         public string FirstName { get; set; }

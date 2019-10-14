@@ -33,6 +33,11 @@ namespace MainFunctionApp
 
                 IRepository<Customer> repo = _serviceProvider.GetService(typeof(IRepository<Customer>)) as IRepository<Customer>;
 
+                if( string.IsNullOrEmpty(cust.id) )
+                {
+                    cust.id = Guid.NewGuid().ToString();
+                }
+
                 var result = await repo.Insert(cust);
 
                 string jsonResult = JsonConvert.SerializeObject(result);
