@@ -29,11 +29,11 @@ namespace MainFunctionApp
                 string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
 
                 log.LogInformation($"request body:{requestBody}");
-                var customer = JsonConvert.DeserializeObject<Customer>(requestBody);
+                var cust = JsonConvert.DeserializeObject<Customer>(requestBody);
 
                 IRepository<Customer> repo = _serviceProvider.GetService(typeof(IRepository<Customer>)) as IRepository<Customer>;
 
-                var result = repo.Insert(customer);
+                var result = await repo.Insert(cust);
 
                 string jsonResult = JsonConvert.SerializeObject(result);
 
