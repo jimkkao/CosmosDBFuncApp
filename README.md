@@ -4,7 +4,6 @@ This project contains a collection of sample RESTful APIs implemented in Azure F
 
 The samples demonstrate the following features:
 
-1. CosmosDB SQL Api
-2. CosmosDB Mongo Api
-3. Dependency Injection in Azure Function
-4. C# Expression to construct Lambda linq filter 
+* CosmosDB SQL Api
+* Dependency Injection in Azure Function
+* C# Expression to construct Lambda linq filter 
