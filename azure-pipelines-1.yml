@@ -71,5 +71,4 @@ stages:
               appType: functionApp
               appName: $(functionAppName)
               package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
-              appSettings: -TestPrimarykey AOKcrqoAvRJxtLpHq8XThu6AoAx3bjLdQTA3ONE0JSc3F1U8HKxiLh44kHDMypMLvxH0YBTNeT2I9Rb1UgTaDA== 
-                -TestPartitionKey /LastName
+              
