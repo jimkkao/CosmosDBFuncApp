@@ -31,7 +31,7 @@ namespace MainFunctionApp
                 log.LogInformation($"request body:{requestBody}");
                 var cust = JsonConvert.DeserializeObject<Customer>(requestBody);
 
-                IRepository<Customer> repo = _serviceProvider.GetService(typeof(IRepository<Customer>)) as IRepository<Customer>;
+                ISqlRepository<Customer> repo = _serviceProvider.GetService(typeof(ISqlRepository<Customer>)) as ISqlRepository<Customer>;
 
                 if( string.IsNullOrEmpty(cust.id) )
                 {

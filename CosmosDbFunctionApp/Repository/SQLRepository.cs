@@ -14,9 +14,9 @@ using Model;
 
 namespace Repository
 {
-    public class SQLRepository<T> : IRepository<T>
+    public class SQLRepository<T> : ISqlRepository<T>
     {
-        protected CosmosClient _client;
+        static protected CosmosClient _client = null;
 
         protected ISqlConfig _config;
         protected Database _database;
@@ -45,10 +45,6 @@ namespace Repository
            
         }
 
-        public async Task<List<Customer>> Get(string uniqueid)
-        {
-            return _container.GetItemLinqQueryable<Customer>(true).Where(x => x.UniqueId == uniqueid).ToList<Customer>();
-        }
 
         public async Task<T> Insert(T item)
         {

@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "Repository\Re
 EndProject
 Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "CosmosDBFuncRG", "CosmosDBFuncRG\CosmosDBFuncRG.deployproj", "{F369D2FF-64D7-408E-82C6-2C002FF9DAA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{626A3A43-F09E-4D12-9B87-884D44938549}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Model\Model.csproj", "{626A3A43-F09E-4D12-9B87-884D44938549}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

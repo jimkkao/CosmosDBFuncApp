@@ -30,7 +30,7 @@ namespace MainFunctionApp
             var id = uniqueid;
             try
             { 
-                IRepository<Customer> repo = _serviceProvider.GetService(typeof(IRepository<Customer>)) as IRepository<Customer>;
+                ISqlRepository<Customer> repo = _serviceProvider.GetService(typeof(ISqlRepository<Customer>)) as ISqlRepository<Customer>;
                 Expression < Func<Customer, bool> > lambda = x => x.UniqueId == uniqueid;
           
                 var result = await repo.Get(lambda);

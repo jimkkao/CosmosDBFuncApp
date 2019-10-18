@@ -50,10 +50,10 @@ namespace MainFunctionApp
             string partitionKey = GetPartitionKey();
             
             var services = new ServiceCollection()
-                .AddSingleton<IRepository<Customer>, SQLRepository<Customer>>()
-                .AddSingleton<ISqlConfig>(new SqlConfig());
-
-
+                .AddSingleton<ISqlRepository<Customer>, SQLRepository<Customer>>()
+                .AddSingleton<IMongoRepository<Customer>, MongoRepository<Customer>>()
+                .AddSingleton<ISqlConfig>(new SqlConfig())
+                .AddSingleton<IMongoConfig>(new MongoConfig());
 
             return services.BuildServiceProvider();
         }
