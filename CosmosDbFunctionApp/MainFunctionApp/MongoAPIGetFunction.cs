@@ -7,6 +7,12 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using System.Linq.Expressions;
+
+
+using RepositoryContract;
+using Model;
+
 
 namespace MainFunctionApp
 {
@@ -21,15 +27,27 @@ namespace MainFunctionApp
         {
             log.LogInformation($"C# HTTP trigger MongoAPI Get function processed a request. uniqueid={uniqueid}");
 
-            string name = req.Query["name"];
+            try
+            {
+                IMongoRepository<Customer> repo = _serviceProvider.GetService(typeof(IMongoRepository<Customer>)) as IMongoRepository<Customer>;
 
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            dynamic data = JsonConvert.DeserializeObject(requestBody);
-            name = name ?? data?.name;
+                Expression<Func<Customer, bool>> lambda = x => x.UniqueId == uniqueid;
 
-            return name != null
-                ? (ActionResult)new OkObjectResult($"Hello, {name}")
-                : new BadRequestObjectResult("Please pass a name on the query string or in the request body");
+                var result = await repo.Get(lambda);
+
+                var jsonResult = JsonConvert.SerializeObject(result);
+
+                log.LogInformation($"result: {jsonResult}");
+
+                return (ActionResult)new OkObjectResult(jsonResult);
+            }
+            catch (Exception e)
+            {
+                log.LogError(e.Message);
+
+                return (ActionResult)new BadRequestResult();
+            }
+
         }
     }
 }

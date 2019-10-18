@@ -27,7 +27,7 @@ namespace MainFunctionApp
         {
             log.LogInformation($"C# HTTP trigger function processed a request, uniqueid={uniqueid}");
 
-            var id = uniqueid;
+        
             try
             { 
                 ISqlRepository<Customer> repo = _serviceProvider.GetService(typeof(ISqlRepository<Customer>)) as ISqlRepository<Customer>;
@@ -49,11 +49,6 @@ namespace MainFunctionApp
             }
         }
 
-        static Func<Customer, bool> CreateLambda(string uniqueid)
-        {
-            Expression<Func<Customer, bool>> lambda = x => x.UniqueId == uniqueid;
 
-            return lambda.Compile();
-        }
     }
 }
