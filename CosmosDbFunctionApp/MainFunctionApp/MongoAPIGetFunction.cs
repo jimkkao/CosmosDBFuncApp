@@ -43,7 +43,7 @@ namespace MainFunctionApp
             }
             catch (Exception e)
             {
-                log.LogError(e.Message);
+                log.LogError(e, $"Mongo API failed to get {uniqueid}");
 
                 return (ActionResult)new BadRequestResult();
             }
