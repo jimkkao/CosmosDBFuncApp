@@ -6,7 +6,7 @@ namespace Model
 {
     public class Customer
     {
-        [BsonRepresentation(BsonType.ObjectId)]
+       // [BsonRepresentation(BsonType.ObjectId)]
         public string id { get; set; }
 
         public string UniqueId { get; set; }
