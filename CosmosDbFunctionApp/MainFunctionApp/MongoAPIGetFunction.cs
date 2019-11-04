@@ -22,7 +22,7 @@ namespace MainFunctionApp
 
         [FunctionName("MongoAPIGetFunction")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "customer/{uniqueid}")] HttpRequest req, string uniqueid,
+            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "mongo/customer/{uniqueid}")] HttpRequest req, string uniqueid,
             ILogger log)
         {
             log.LogInformation($"C# HTTP trigger MongoAPI Get function processed a request. uniqueid={uniqueid}");
