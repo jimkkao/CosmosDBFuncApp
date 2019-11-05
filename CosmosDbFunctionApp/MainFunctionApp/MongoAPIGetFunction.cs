@@ -29,9 +29,9 @@ namespace MainFunctionApp
 
             try
             {
-                IMongoRepository<Customer> repo = _serviceProvider.GetService(typeof(IMongoRepository<Customer>)) as IMongoRepository<Customer>;
+                IMongoRepository<MongoCustomer> repo = _serviceProvider.GetService(typeof(IMongoRepository<MongoCustomer>)) as IMongoRepository<MongoCustomer>;
 
-                Expression<Func<Customer, bool>> lambda = x => x.UniqueId == uniqueid;
+                Expression<Func<MongoCustomer, bool>> lambda = x => x.UniqueId == uniqueid;
 
                 var result = await repo.Get(lambda);
 

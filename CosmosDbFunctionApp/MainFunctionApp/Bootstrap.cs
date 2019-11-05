@@ -51,7 +51,7 @@ namespace MainFunctionApp
             
             var services = new ServiceCollection()
                 .AddSingleton<ISqlRepository<Customer>, SQLRepository<Customer>>()
-                .AddSingleton<IMongoRepository<Customer>, MongoRepository<Customer>>()
+                .AddSingleton<IMongoRepository<MongoCustomer>, MongoRepository<MongoCustomer>>()
                 .AddSingleton<ISqlConfig>(new SqlConfig())
                 .AddSingleton<IMongoConfig>(new MongoConfig());
 
