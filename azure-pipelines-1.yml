@@ -34,9 +34,10 @@ stages:
         projects: |
           **/*.csproj
         arguments: --output publish_output --configuration Release
-    - task: CodeMetrics@1
+  
+    - task: CredScan@2
       inputs:
-        Files: '$(Build.SourcesDirectory)\**\*.exe;$(Build.SourcesDirectory)\**\*.dll'
+        toolMajorVersion: 'V1'
     - task: ArchiveFiles@2
       displayName: 'Archive files'
       inputs:
