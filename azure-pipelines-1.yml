@@ -27,6 +27,9 @@ stages:
       vmImage: $(vmImageName)
 
     steps:
+    - task: CredScan@2
+      inputs:
+        toolMajorVersion: 'V1'
     - task: DotNetCoreCLI@2
       displayName: Build
       inputs:
@@ -35,9 +38,7 @@ stages:
           **/*.csproj
         arguments: --output publish_output --configuration Release
   
-    - task: CredScan@2
-      inputs:
-        toolMajorVersion: 'V1'
+
     - task: ArchiveFiles@2
       displayName: 'Archive files'
       inputs:
