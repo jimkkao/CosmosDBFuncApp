@@ -34,7 +34,9 @@ stages:
         projects: |
           **/*.csproj
         arguments: --output publish_output --configuration Release
-
+    - task: CodeMetrics@1
+      inputs:
+        Files: '$(Build.SourcesDirectory)\**\*.exe;$(Build.SourcesDirectory)\**\*.dll'
     - task: ArchiveFiles@2
       displayName: 'Archive files'
       inputs:
