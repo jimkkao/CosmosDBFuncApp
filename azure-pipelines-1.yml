@@ -50,7 +50,13 @@ stages:
 
     - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
       artifact: drop
-
+    - task: PublishSecurityAnalysisLogs@2
+      inputs:
+        ArtifactName: 'CodeAnalysisLogs'
+        ArtifactType: 'Container'
+        AllTools: true
+        ToolLogsNotFoundAction: 'Standard'
+        
 - stage: Deploy
   displayName: Deploy stage
   dependsOn: Build
