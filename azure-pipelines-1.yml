@@ -27,6 +27,9 @@ stages:
       vmImage: $(vmImageName)
 
     steps:
+    - task: CredScan@2
+      inputs:
+        toolMajorVersion: 'V1'
     - task: DotNetCoreCLI@2
       displayName: Build
       inputs:
@@ -34,11 +37,40 @@ stages:
         projects: |
           **/*.csproj
         arguments: --output publish_output --configuration Release
+  
+    - task: CodeMetrics@1
+      inputs:
+        Files: '$(Build.SourcesDirectory)\**\*.exe;$(Build.SourcesDirectory)\**\*.dll'
 
+    - task: SdtReport@1
+      inputs:
+        AllTools: true
+        BinSkimBreakOn: 'Error'
+        CodesignValidationBreakOn: 'Error'
+        FxCopBreakOn: 'ErrorAbove'
+        ModernCopBreakOn: 'Error'
+        PoliCheckBreakOn: 'Severity1'
+        RoslynAnalyzersBreakOn: 'Error'
+        SemmleBreakOn: 'Error'
+        TSLintBreakOn: 'Error'
+        ToolLogsNotFoundAction: 'Standard'
+
+    - task: PostAnalysis@1
+      inputs:
+          AllTools: true
+          BinSkimBreakOn: 'Error'
+          CodesignValidationBreakOn: 'Error'
+          FxCopBreakOn: 'ErrorAbove'
+          ModernCopBreakOn: 'Error'
+          PoliCheckBreakOn: 'Severity1'
+          RoslynAnalyzersBreakOn: 'Error'
+          SemmleBreakOn: 'Error'
+          TSLintBreakOn: 'Error'
+          ToolLogsNotFoundAction: 'Standard'
     - task: ArchiveFiles@2
       displayName: 'Archive files'
       inputs:
-        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/CosmosDbFunctionApp/MainFunctionApp/publish_output'
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/publish_output'
         includeRootFolder: false
         archiveType: zip
         archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
@@ -46,7 +78,13 @@ stages:
 
     - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
       artifact: drop
-
+    - task: PublishSecurityAnalysisLogs@2
+      inputs:
+        ArtifactName: 'CodeAnalysisLogs'
+        ArtifactType: 'Container'
+        AllTools: true
+        ToolLogsNotFoundAction: 'Standard'
+        
 - stage: Deploy
   displayName: Deploy stage
   dependsOn: Build
