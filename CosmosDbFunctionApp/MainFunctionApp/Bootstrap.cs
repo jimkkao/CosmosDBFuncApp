@@ -39,15 +39,6 @@ namespace MainFunctionApp
 
         public static IServiceProvider ConfigureServices()
         {
-            string endpointurl = GetEndPointUrl();
-
-            string primaryKey = GetPrimaryKey();
-
-            string database = GetDataBase();
-
-            string container = GetContainer();
-
-            string partitionKey = GetPartitionKey();
             
             var services = new ServiceCollection()
                 .AddSingleton<ISqlRepository<Customer>, SQLRepository<Customer>>()
