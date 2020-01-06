@@ -1,4 +1,4 @@
-# CosmosDbFunctionApp
+# CosmosDb Function App
 
 This project contains a collection of sample RESTful APIs implemented in Azure Functions and using CosmosDB as a storage. 
 
