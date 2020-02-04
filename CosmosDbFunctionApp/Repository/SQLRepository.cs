@@ -40,11 +40,8 @@ namespace Repository
 
         public async Task<List<T>> Get(Expression<Func<T, bool>> func)
         {
-
-            return _container.GetItemLinqQueryable<T>(true).Where(func).ToList<T>();
-           
+            return _container.GetItemLinqQueryable<T>(true).Where(func).ToList<T>();           
         }
-
 
         public async Task<T> Insert(T item)
         {
