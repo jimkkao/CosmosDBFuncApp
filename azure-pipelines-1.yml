@@ -27,9 +27,6 @@ stages:
       vmImage: $(vmImageName)
 
     steps:
-    - task: CredScan@2
-      inputs:
-        toolMajorVersion: 'V1'
     - task: DotNetCoreCLI@2
       displayName: Build
       inputs:
