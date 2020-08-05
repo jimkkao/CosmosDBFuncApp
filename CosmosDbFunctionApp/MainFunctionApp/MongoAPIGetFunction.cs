@@ -16,12 +16,18 @@ using Model;
 
 namespace MainFunctionApp
 {
-    public static class MongoAPIGetFunction
+    public class MongoAPIGetFunction
     {
         static IServiceProvider _serviceProvider = Bootstrap.ConfigureServices();
+        protected IMongoRepository<MongoCustomer> _repo = null;
+
+        public MongoAPIGetFunction(IMongoRepository<MongoCustomer> repository)
+        {
+            _repo = repository;
+        }
 
         [FunctionName("MongoAPIGetFunction")]
-        public static async Task<IActionResult> Run(
+        public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", Route = "mongo/customer/{uniqueid}")] HttpRequest req, string uniqueid,
             ILogger log)
         {
@@ -29,11 +35,11 @@ namespace MainFunctionApp
 
             try
             {
-                IMongoRepository<MongoCustomer> repo = _serviceProvider.GetService(typeof(IMongoRepository<MongoCustomer>)) as IMongoRepository<MongoCustomer>;
+                //IMongoRepository<MongoCustomer> repo = _serviceProvider.GetService(typeof(IMongoRepository<MongoCustomer>)) as IMongoRepository<MongoCustomer>;
 
                 Expression<Func<MongoCustomer, bool>> lambda = x => x.UniqueId == uniqueid;
 
-                var result = await repo.Get(lambda);
+                var result = await _repo.Get(lambda);
 
                 var jsonResult = JsonConvert.SerializeObject(result);
 

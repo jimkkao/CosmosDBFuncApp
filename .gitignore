@@ -19,3 +19,6 @@
 /CosmosDbFunctionApp/Model/bin/Release/netcoreapp2.1
 /CosmosDbFunctionApp/Repository/bin/Release/netcoreapp2.1
 /CosmosDbFunctionApp/RepositoryContract/bin/Release/netcoreapp2.1
+/CosmosDbFunctionApp/Model/bin/Release/netcoreapp3.1
+/CosmosDbFunctionApp/Repository/bin/Release/netcoreapp3.1
+/CosmosDbFunctionApp/RepositoryContract/bin/Release/netcoreapp3.1

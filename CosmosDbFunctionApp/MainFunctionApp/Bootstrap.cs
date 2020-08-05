@@ -12,30 +12,6 @@ namespace MainFunctionApp
 {
     public class Bootstrap
     {
-        protected static string GetEndPointUrl()
-        {
-            return string.Empty;
-        }
-
-        protected static string GetPrimaryKey()
-        {
-            return string.Empty;
-        }
-
-        protected static string GetDataBase()
-        {
-            return string.Empty;
-        }
-
-        protected static string GetContainer()
-        {
-            return string.Empty;
-        }
-
-        protected static string GetPartitionKey()
-        {
-            return string.Empty;
-        }
 
         public static IServiceProvider ConfigureServices()
         {
