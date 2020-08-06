@@ -18,7 +18,6 @@ namespace MainFunctionApp
 {
     public class MongoAPIGetFunction
     {
-        static IServiceProvider _serviceProvider = Bootstrap.ConfigureServices();
         protected IMongoRepository<MongoCustomer> _repo = null;
 
         public MongoAPIGetFunction(IMongoRepository<MongoCustomer> repository)
@@ -35,8 +34,6 @@ namespace MainFunctionApp
 
             try
             {
-                //IMongoRepository<MongoCustomer> repo = _serviceProvider.GetService(typeof(IMongoRepository<MongoCustomer>)) as IMongoRepository<MongoCustomer>;
-
                 Expression<Func<MongoCustomer, bool>> lambda = x => x.UniqueId == uniqueid;
 
                 var result = await _repo.Get(lambda);

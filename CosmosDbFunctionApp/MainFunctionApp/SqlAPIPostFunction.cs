@@ -13,12 +13,20 @@ using RepositoryContract;
 
 namespace MainFunctionApp
 {
-    public static class SqlAPIPostFunction
+    public class SqlAPIPostFunction
     {
         static IServiceProvider _serviceProvider = Bootstrap.ConfigureServices();
 
+        protected ISqlRepository<Customer> _repo = null;
+
+
+        public SqlAPIPostFunction(ISqlRepository<Customer> repository)
+        {
+            _repo = repository;
+        }
+
         [FunctionName("SqlAPIPostFunction")]
-        public static async Task<IActionResult> Run(
+        public  async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = "customer")] HttpRequest req,
             ILogger log)
         {
@@ -31,14 +39,12 @@ namespace MainFunctionApp
                 log.LogInformation($"request body:{requestBody}");
                 var cust = JsonConvert.DeserializeObject<Customer>(requestBody);
 
-                ISqlRepository<Customer> repo = _serviceProvider.GetService(typeof(ISqlRepository<Customer>)) as ISqlRepository<Customer>;
-
                 if( string.IsNullOrEmpty(cust.id) )
                 {
                     cust.id = Guid.NewGuid().ToString();
                 }
 
-                var result = await repo.Insert(cust);
+                var result = await _repo.Insert(cust);
 
                 string jsonResult = JsonConvert.SerializeObject(result);
 

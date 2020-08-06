@@ -15,12 +15,19 @@ using Repository;
 
 namespace MainFunctionApp
 {
-    public static class SqlAPIGetFunction
+    public class SqlAPIGetFunction
     {
         static IServiceProvider _serviceProvider = Bootstrap.ConfigureServices();
 
+        protected ISqlRepository<Customer> _repo = null;
+
+        public SqlAPIGetFunction(ISqlRepository<Customer> repository)
+        {
+            _repo = repository;
+        }
+
         [FunctionName("SqlAPIGetFunction")]
-        public static async Task<IActionResult> Run(
+        public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", Route = "customer/{uniqueid}")] HttpRequest req,
             string uniqueid,
             ILogger log)
@@ -30,10 +37,10 @@ namespace MainFunctionApp
         
             try
             { 
-                ISqlRepository<Customer> repo = _serviceProvider.GetService(typeof(ISqlRepository<Customer>)) as ISqlRepository<Customer>;
+                //ISqlRepository<Customer> repo = _serviceProvider.GetService(typeof(ISqlRepository<Customer>)) as ISqlRepository<Customer>;
                 Expression < Func<Customer, bool> > lambda = x => x.UniqueId == uniqueid;
           
-                var result = await repo.Get(lambda);
+                var result = await _repo.Get(lambda);
                 
                 var jsonResult = JsonConvert.SerializeObject(result);
 

@@ -14,13 +14,20 @@ using RepositoryContract;
 
 namespace MainFunctionApp
 {
-    public static class MongoAPIPostFunction
+    public class MongoAPIPostFunction
     {
 
         static IServiceProvider _serviceProvider = Bootstrap.ConfigureServices();
 
+        protected IMongoRepository<MongoCustomer> _repo = null;
+
+        public MongoAPIPostFunction(IMongoRepository<MongoCustomer> repository)
+        {
+            _repo = repository;
+        }
+
         [FunctionName("MongoAPIPostFunction")]
-        public static async Task<IActionResult> Run(
+        public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = "customer")] HttpRequest req,
             ILogger log)
         {
@@ -33,14 +40,14 @@ namespace MainFunctionApp
                 log.LogInformation($"request body:{requestBody}");
                 var cust = JsonConvert.DeserializeObject<MongoCustomer>(requestBody);
 
-                IMongoRepository<MongoCustomer> repo = _serviceProvider.GetService(typeof(IMongoRepository<MongoCustomer>)) as IMongoRepository<MongoCustomer>;
+                //IMongoRepository<MongoCustomer> repo = _serviceProvider.GetService(typeof(IMongoRepository<MongoCustomer>)) as IMongoRepository<MongoCustomer>;
 
                 if (string.IsNullOrEmpty(cust.id))
                 {
                     cust.id = Guid.NewGuid().ToString();
                 }
 
-                var result = await repo.Insert(cust);
+                var result = await _repo.Insert(cust);
 
                 string jsonResult = JsonConvert.SerializeObject(result);
 
