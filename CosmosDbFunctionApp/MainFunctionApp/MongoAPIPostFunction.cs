@@ -17,8 +17,6 @@ namespace MainFunctionApp
     public class MongoAPIPostFunction
     {
 
-        static IServiceProvider _serviceProvider = Bootstrap.ConfigureServices();
-
         protected IMongoRepository<MongoCustomer> _repo = null;
 
         public MongoAPIPostFunction(IMongoRepository<MongoCustomer> repository)
@@ -39,8 +37,6 @@ namespace MainFunctionApp
 
                 log.LogInformation($"request body:{requestBody}");
                 var cust = JsonConvert.DeserializeObject<MongoCustomer>(requestBody);
-
-                //IMongoRepository<MongoCustomer> repo = _serviceProvider.GetService(typeof(IMongoRepository<MongoCustomer>)) as IMongoRepository<MongoCustomer>;
 
                 if (string.IsNullOrEmpty(cust.id))
                 {

@@ -17,8 +17,6 @@ namespace MainFunctionApp
 {
     public class SqlAPIGetFunction
     {
-        static IServiceProvider _serviceProvider = Bootstrap.ConfigureServices();
-
         protected ISqlRepository<Customer> _repo = null;
 
         public SqlAPIGetFunction(ISqlRepository<Customer> repository)
@@ -37,7 +35,6 @@ namespace MainFunctionApp
         
             try
             { 
-                //ISqlRepository<Customer> repo = _serviceProvider.GetService(typeof(ISqlRepository<Customer>)) as ISqlRepository<Customer>;
                 Expression < Func<Customer, bool> > lambda = x => x.UniqueId == uniqueid;
           
                 var result = await _repo.Get(lambda);

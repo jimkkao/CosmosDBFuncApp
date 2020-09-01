@@ -18,8 +18,6 @@ namespace MainFunctionApp
                 .AddSingleton<IMongoRepository<MongoCustomer>, MongoRepository<MongoCustomer>>()
                 .AddSingleton<ISqlConfig>(new SqlConfig())
                 .AddSingleton<IMongoConfig>(new MongoConfig());
-
-            //builder.Services.AddSingleton<ILoggerProvider, MyLoggerProvider>();
         }
     }
 }
